@@ -1,0 +1,4 @@
+scarlet
+=======
+
+Base JavaScript Framework
