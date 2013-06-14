@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Scarlet - Traits</title>
+	</head>
+	<script type="text/javascript" src="../../src/scarlet.js"></script>
+	
+	<script type="text/javascript">
+		window.onload = function()
+		{
+			var BarTrait = new Scarlet.Trait({
+				"bar": function(){Scarlet.log("called bartrait");}
+			});
+			var BarAndDoTrait = new Scarlet.Trait({
+				"bar": function(){Scarlet.log("called baranddotrait");},
+				"do": function(aString){Scarlet.log(aString);}
+			});
+			var FooTrait = new Scarlet.Trait({
+				"foo": function(){
+					Scarlet.log("abc");
+					this.bar();
+					Scarlet.log("cba");
+				},
+			});
+			
+			var Crawler = function(){};
+			
+			Scarlet.inheritsFrom(Crawler, Scarlet.Object);
+			
+			BarTrait.addPropertiesTo(Crawler.prototype);
+			
+			
+			var crawl = new Crawler();
+			crawl.bar();
+			FooTrait.addPropertiesTo(crawl);
+			crawl.foo();
+			BarAndDoTrait.addPropertiesTo(crawl);
+			crawl.bar();
+		};
+	</script>
+
+	<body>
+		<h1>Traits</h1>
+	  	<canvas id="WebGL-canvas" width="512" height="312" oncontextmenu="return false;" />
+		<h2>bla</h2>
+  </body>
+</html>

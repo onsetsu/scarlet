@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Scarlet - Signal/Slot</title>
+	</head>
+
+	<script type="text/javascript" src="../../src/scarlet.js"></script>
+
+	<script type="text/javascript">
+		window.onload = function() 
+		{			
+			var firstSlot = new Scarlet.Slot(Scarlet, Scarlet.log);
+			var secondSlot = new Scarlet.Slot(Scarlet, Scarlet.log);
+			var brokenSlot = new Scarlet.Slot({}, function() {
+				Scarlet.log(blub);
+			});
+			
+			var firstSignal = new Scarlet.Signal()
+				.connect(firstSlot)
+				.connect(secondSlot)
+				.connect(secondSlot)
+				.disconnect(secondSlot)
+				.emit("foo", "bar", "baz");
+			
+			var secondSignal = new Scarlet.Signal()
+				.connect(secondSlot)
+				.emit("foooooo", 42);
+			
+			secondSignal
+				.connect(firstSlot)
+				.emit("you should see this doubled")
+				.disconnectAll()
+				.emit("should not be visible");
+			
+			new Scarlet.Signal()
+				.connect(brokenSlot)
+				.connect(firstSlot)
+				.emit("you should see this, but no error");
+			
+			document.write("<ul><li>you should see no error</li></ul>");
+		};
+	</script>
+
+	<body>
+		<h1>Signal/Slot</h1>
+	  	<canvas id="WebGL-canvas" width="512" height="312" oncontextmenu="return false;" />
+		<h2>under canvas</h2>
+  </body>
+</html>

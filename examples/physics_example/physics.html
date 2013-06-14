@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Scarlet - Physics</title>
+
+	</head>
+
+	<script type="text/javascript" src="../../src/scarlet.js"></script>
+
+	<script type="text/javascript">
+		window.requestAnimFrame = (function(){
+		  return  window.requestAnimationFrame       || 
+				  window.webkitRequestAnimationFrame || 
+				  window.mozRequestAnimationFrame    || 
+				  window.oRequestAnimationFrame      || 
+				  window.msRequestAnimationFrame     || 
+				  function(/* function */ callback, /* DOMElement */ element){
+					window.setTimeout(callback, 1000 / 60);
+				  };
+		})();
+	</script>
+	<script type="text/javascript">
+		window.onload = function() 
+		{
+			var particleSystem = new Scarlet.Physics.ParticleSystem();
+			// emulating a particle which moves along the y-axis and is drawn by gravity.
+			
+			var addRandomParticle = function(particleSystem) {
+				var systemParticle = new Scarlet.Physics.VerletParticle(vec3.fromValues(
+					Math.random() - 0.5,
+					Math.random() - 0.5,
+					0.0
+				), vec3.fromValues(0.0, 0.0, 0.0));
+				particleSystem.particles.push(systemParticle);
+			};
+			
+			//for(var i = 0; i < 100; i++) addRandomParticle(particleSystem);
+
+			// setup debug plot
+			var particlePlot = new Scarlet.Physics.ParticlePlot(particleSystem);
+			
+			counter = 0;
+			// animation loop
+			function update() {
+				particleSystem.update();
+				particlePlot.update();
+				
+				if(counter > 10) {
+					addRandomParticle(particleSystem);
+					counter = 0;
+				} else {
+					counter++;
+				};
+				
+				// set up the next call
+				requestAnimFrame(update);
+			}
+			requestAnimFrame(update);
+		}
+	</script>
+	<body>
+  </body>
+</html>

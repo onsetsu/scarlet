@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Scarlet - TypeChecker</title>
+	</head>
+
+	<script type="text/javascript" src="../../src/scarlet.js"></script>
+	<script type="text/javascript" src="../../libs/underscore.js"></script>
+
+	<script type="text/javascript">
+		window.onload = function() 
+		{			
+			Scarlet.checkType(undefined)
+				.if("string", function() {
+					Scarlet.log("String");
+				}).if("undefined", function() {
+					Scarlet.log("undefined");
+				}).else(function() {
+					Scarlet.log("else");
+				});
+			Scarlet.checkType("this is a string")
+				.if("string", function() {
+					Scarlet.log("String");
+				}).if("undefined", function() {
+					Scarlet.log("undefined");
+				}).elseif("string", function() {
+					Scarlet.log("you should not see this");
+				});
+				
+			var Foo = Scarlet.Object.subclass(function(){});
+			var Bar = Foo.subclass(function(){})
+			Scarlet.checkType(Bar)
+				.if(Scarlet.Object, function() {
+					Scarlet.log("Bar is an Scarlet.Object");
+				}).if(Bar.subclass(function() {}), function() {
+					Scarlet.log("Bar is a Subclass of Bar");
+				});
+		};
+	</script>
+
+	<body>
+		<h1>TypeChecker</h1>
+  </body>
+</html>

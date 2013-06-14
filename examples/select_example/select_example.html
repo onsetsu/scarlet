@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Scarlet - select</title>
+	</head>
+	<script type="text/javascript" src="../../src/scarlet.js"></script>
+	
+	<script type="text/javascript">
+		window.onload = function()
+		{
+			window.fooObject = {
+				foo: "foo",
+				barObject: {
+					foo: "foo",
+					bar: "bar"
+				}
+			};
+			
+			var selection = Scarlet.select(function (element) {
+				try {
+					return typeof element.arguments !== "undefined";
+				} catch(e) {
+					return false;
+				}
+			}, d3);
+			Scarlet.log(selection);
+		};
+	</script>
+
+	<body>
+		<h1>select</h1>
+  </body>
+</html>

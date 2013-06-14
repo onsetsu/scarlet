@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Scarlet - Currying</title>
+	</head>
+
+	<script type="text/javascript" src="../../src/scarlet.js"></script>
+	<script type="text/javascript" src="../../libs/underscore.js"></script>
+
+	<script type="text/javascript">
+		window.onload = function() 
+		{			
+			var reductor = Scarlet.Currying()
+				.mandatory("array")
+				.mandatory("iterator")
+				.mandatory("accumulator")
+				.callback(new Scarlet.Callback(_, _.reduce))
+				.trigger("result")
+				.getAPI();
+				
+			var array = [1, 2, 3];
+			var func = function(memo, num){
+					return memo + num;
+				};
+			var accumulator = 0;
+			
+			Scarlet.log(_.reduce(array, func, accumulator));
+			
+			Scarlet.log(reductor
+				.array(array)
+				.iterator(func)
+				.accumulator(accumulator)
+				.result()
+			);
+		};
+	</script>
+
+	<body>
+		<h1>Currying</h1>
+  </body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Scarlet - Module Base</title>
+	</head>
+	<script type="text/javascript" src="../../libs/jquery.js"></script>
+	<script type="text/javascript" src="../../libs/aop.js"></script>
+	
+	<script type="text/javascript" src="../../src/scarlet.js"></script>
+
+	<script type="text/javascript" src="module_example.js"></script>
+
+	<script type="text/javascript">
+		window.onload = function() 
+		{			
+			var firstSlot = new Scarlet.Slot(Scarlet, Scarlet.log);
+			var secondSlot = new Scarlet.Slot(Scarlet, Scarlet.log);
+
+			var firstSignal = new Scarlet.Signal()
+				.connect(secondSlot, firstSlot)
+				.connect(secondSlot)
+				.disconnect(secondSlot)
+				.emit("foo", "bar", "baz");
+			
+			var secondSignal = new Scarlet.Signal()
+				.connect(secondSlot)
+				.emit("foooooo", 42);
+			
+			secondSignal
+				.connect(firstSlot)
+				.emit("you should see this doubled")
+				.disconnectAll()
+				//.disconnect(firstSlot, secondSlot)
+				.emit("should not be visible");
+			
+			$("body").text("HALLO");
+			for (prop in $)
+			{
+				Scarlet.log($[prop]);
+			}
+			/*
+			// tries to override Function to make AOP possible
+			var oldFunc = Function;
+			Function = {};
+			Function.prototype = oldFunc;
+			(function(){}).constructor.prototype.before = function(beforeStatement){
+				this.beforeStatement = beforeStatement;
+			};
+			
+			var old = (function(){}).constructor.prototype.call;
+			(function(){}).constructor.prototype.call = function(){
+				Scarlet.log(this.beforeStatement)
+				old.apply(this, []);
+			};
+			(function(){}).constructor.prototype.apply = function(){
+				console.log("yyy");
+			};
+			
+			function blub(bar, blub) {
+				return bar + blub;
+			};
+			function print (object){
+				Scarlet.log(Object.toString());
+				var iterator = Object.getOwnPropertyNames(object);
+				for (i in iterator) {
+					Scarlet.log(iterator[i], object[iterator[i]]);
+				};
+			};
+			function myFunc() {};
+			myFunc.before("beforeblub myFunc");
+			Scarlet.log("myFunc: ", myFunc.beforeStatement);
+			print(Function);
+			print(Function.prototype);
+			print(Function.prototype.call);
+			print(blub.constructor);
+			print(blub);
+			
+			Scarlet.log("window.onload");
+
+			var Foo = function() {
+			};
+			Foo.classDoIt = function() {
+				Scarlet.log("Class do it.");
+			};
+			Foo.prototype.objectDoIt = function() {
+				Scarlet.log("Object do it.");
+			};
+			
+			// test class
+			var originalMethod = Foo.classDoIt;
+			
+			jQuery.aop.around( {target: Foo, method: "classDoIt"}, 
+				function(invocation) {
+					Scarlet.log("Pre ", invocation.method);
+					var x = invocation.proceed();
+					Scarlet.log("Post ", invocation.method);
+					return x;
+				}
+			);
+			
+			Foo.classDoIt();
+			originalMethod();
+
+			// test object
+			var originalObject = new Foo();
+			var redefinedObject = new Foo();
+			redefinedObject.objectDoIt = function() {
+				Scarlet.log("NEW Object do it.");
+			};
+			
+			jQuery.aop.around( {target: Foo.prototype, method: "objectDoIt"}, 
+				function(invocation) {
+					Scarlet.log("Pre ", invocation.method);
+					var x = invocation.proceed();
+					Scarlet.log("Post ", invocation.method);
+					return x;
+				}
+			);
+			
+			(new Foo()).objectDoIt();
+			originalObject.objectDoIt();
+			redefinedObject.objectDoIt();
+			*/
+		};
+	</script>
+
+	<body>
+		<h1>Module</h1>
+	  	<canvas id="WebGL-canvas" width="512" height="312" oncontextmenu="return false;" />
+		<h2>under canvas</h2>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Scarlet - Integration</title>
+	</head>
+	<script type="text/javascript" src="../../src/scarlet.js"></script>
+	
+	<script type="text/javascript">
+		window.onload = function()
+		{
+			Scarlet.from("../../libs/underscore.js", "../../libs/jquery.js")
+				.import("_.flatten").as("Scarlet._.flatten")
+				.import("_").as("Scarlet._._")
+				.import("$.each").as("Scarlet.$.each")
+				.onload(function() {
+					Scarlet.log("libs geladen!");
+					Scarlet.log(Scarlet._.flatten([[4],[[2]]]));
+					Scarlet.log(Scarlet._._.indexOf([4,2], 2));
+					Scarlet.$.each([0,1,2], function(key, value) {
+						Scarlet.log(key, value);
+					});
+				});
+			// TODO: synchronize multiple libraries
+			/*Scarlet.from("../../libs/prototype.js")
+				.import("_.flatten").as("Scarlet._.flatten")
+				.import("_").as("Scarlet._._")
+				.from("../../libs/jquery.js")
+				.import("$.each").as("Scarlet.$.each")
+				.onload(function() {
+					Scarlet.log("ZWEITES LOAD");
+					Scarlet.log(Scarlet._.flatten([[4],[[2]]]));
+					Scarlet.log(Scarlet._._.indexOf([4,2], 2));
+					Scarlet.$.each([0,1,2], function(key, value) {
+						Scarlet.log(key, value);
+					});
+				});*/
+		};
+	</script>
+
+	<body>
+		<h1>Integration</h1>
+	  	<canvas id="WebGL-canvas" width="512" height="312" oncontextmenu="return false;" />
+		<h2>bla</h2>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Scarlet - using</title>
+	</head>
+	<script type="text/javascript" src="../../src/scarlet.js"></script>
+	
+	<script type="text/javascript">
+		window.onload = function()
+		{
+			Scarlet.namespace("foo.bar.blub");
+			Scarlet.namespace("q.wert.zu.iop");
+			Scarlet.using(Scarlet.foo.bar.blub, Scarlet.q.wert.zu.iop).run(function(blub, iop) {
+				Scarlet.log(this);
+				blub.hallo = "Hallo";
+				iop.welt = "Welt";
+			});
+			Scarlet.log(Scarlet.foo.bar.blub.hallo, Scarlet.q.wert.zu.iop.welt);
+			
+			var really = Scarlet.using(Scarlet.namespace("hallo.there.i.am.a.very.long.namespace")).run(function(tooLong) {
+				tooLong.doesThisWork = "yes";
+				return "or?";
+			});
+			Scarlet.log(Scarlet.hallo.there.i.am.a.very.long.namespace.doesThisWork);
+			Scarlet.log(really);
+		};
+	</script>
+
+	<body>
+		<h1>using</h1>
+	  	<canvas id="WebGL-canvas" width="512" height="312" oncontextmenu="return false;" />
+		<h2>bla</h2>
+  </body>
+</html>

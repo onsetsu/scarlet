@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Scarlet - WebGL Base</title>
+	</head>
+	<script type="text/javascript" src="../libs/jquery.js"></script>
+	<script type="text/javascript" src="../libs/aop.js"></script>
+	<script type="text/javascript" src="../src/scarlet.js"></script>
+
+	<script id="2d-vertex-shader" type="x-shader/x-vertex">
+		attribute vec2 a_position;
+
+		void main() {
+			gl_Position = vec4(a_position, 0, 1);
+		}
+	</script>
+	<script id="2d-fragment-shader" type="x-shader/x-fragment">
+		void main() {
+			gl_FragColor = vec4(0,1,0,1);  // green
+		}
+	</script>
+
+	<script type="text/javascript">
+		var webgl = new Scarlet.WebGL();
+		window.onload = function() 
+		{
+			webgl.doIt("WebGL-canvas");
+
+			var Foo = function() {
+			};
+			Foo.classDoIt = function() {
+				Scarlet.log("Class do it.");
+			};
+			Foo.prototype.ObjectDoIt = function() {
+				Scarlet.log("Object do it.");
+			};
+			originalMethod = Foo.classDoIt;
+			
+			jQuery.aop.around( {target: Foo, method: "classDoIt"}, 
+				function(invocation) {
+					Scarlet.log("Pre ", invocation.method);
+					var x = invocation.proceed();
+					Scarlet.log("Post ", invocation.method);
+					return x;
+				}
+			);
+			
+			Foo.classDoIt();
+			originalMethod();
+		};
+	</script>
+
+	<body>
+		<h1>WebGL</h1>
+	  	<canvas id="WebGL-canvas" width="512" height="312" oncontextmenu="return false;" />
+		<h2>bla</h2>
+  </body>
+</html>

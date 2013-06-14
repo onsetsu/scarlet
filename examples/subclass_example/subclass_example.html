@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Scarlet - subclass</title>
+	</head>
+	<script type="text/javascript" src="../../src/scarlet.js"></script>
+	
+	<script type="text/javascript">
+		window.onload = function()
+		{
+			var Foo = Scarlet.Object.subclass(function Foo() {
+				Scarlet.log("new Foo");
+				this.fooooo = "this is an own property";
+			});
+			Foo.classFoo = function(){Scarlet.log("classFoo")};
+			Foo.prototype.objectFoo = function(){Scarlet.log("objectFoo")};
+
+			var Bar = Foo.subclass(function Bar() {
+				Scarlet.log("Bar");
+			});
+			Bar.classBar = function(){Scarlet.log("classBar")};
+			Bar.prototype.objectBar = function(){Scarlet.log("objectBar")};
+
+			var Blub = Bar.subclass(function Blub() {
+				Scarlet.log("Blub");
+			});
+			Blub.classBlub = function(){Scarlet.log("classBlub")};
+			Blub.prototype.objectBlub = function(){Scarlet.log("objectBlub")};
+			Blub.prototype.objectFoo = function(){Scarlet.log("objectBlubOverridesFoo")};
+			Blub.classFoo = function(){Scarlet.log("classBlubOverridesFoo")};
+
+			// Test Foo
+			var fooObject = new Foo();
+			fooObject.objectFoo();
+			Foo.classFoo();
+			Scarlet.log(fooObject.fooooo);
+			
+			// Test Bar
+			var barObject = new Bar();
+			barObject.objectFoo();
+			barObject.objectBar();
+			Bar.classFoo();
+			Bar.classBar();
+
+			// Test Blub
+			var blubObject = new Blub();
+			blubObject.objectFoo();
+			blubObject.objectBar();
+			blubObject.objectBlub();
+			Blub.classFoo();
+			Blub.classBar();
+			Blub.classBlub();
+		};
+	</script>
+
+	<body>
+		<h1>subclass</h1>
+  </body>
+</html>
