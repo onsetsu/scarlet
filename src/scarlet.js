@@ -71,7 +71,6 @@ Scarlet
 	.include("core/callback")
 	.include("core/signalslot");
 
-// TODO: Move callback and signalslot to core
 // include utility functions
 Scarlet
 	.include("utilities/using")
