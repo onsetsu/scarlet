@@ -67,7 +67,6 @@ Scarlet
 	.include("core/trait/trait")
 	.include("core/asynchronousmodule")
 	.include("core/integration/integration")
-	.include("core/select")
 	.include("core/callback")
 	.include("core/signalslot");
 
@@ -82,6 +81,11 @@ Scarlet
 	.include("game/loop")
 	.include("game/input")
 	.include("game/game");
+
+Scarlet
+	.include("select/select")
+	;
+
 
 // include d3js chart
 //Scarlet.include("d3/bobbleview");
