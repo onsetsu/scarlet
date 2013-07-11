@@ -1,5 +1,4 @@
-TestCase("testScarlet", 
-{
+TestCase("testScarlet", sinon.testCase({
 	setUp: function() 
 	{		
 	},
@@ -8,4 +7,4 @@ TestCase("testScarlet",
 	{
 	}
 
-});
+}));
