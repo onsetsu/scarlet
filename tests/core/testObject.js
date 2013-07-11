@@ -39,7 +39,7 @@ TestCase("testObject", sinon.testCase({
 			});
 		
 		var expectedNumber = 42;
-		var addedNumber = 17
+		var addedNumber = 17;
 		var subObject = new Subclass(expectedNumber);
 
 		assertEquals(subObject.aNumber, expectedNumber);
