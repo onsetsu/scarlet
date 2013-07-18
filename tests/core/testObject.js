@@ -140,12 +140,39 @@ TestCase("testObject", sinon.testCase({
 		assertEquals(6, subSubObj.class.double(3));
 	},
 	
-	// TODO: refine by replacing initialize
 	// Scarlet.Object should use initialize as constructor method.
 	"testScarletObjectShouldUseInitializeAsConstructorMehtod": function()
 	{
 		assertNotUndefined(new Scarlet.Object().initialize);
 		assertNotUndefined(new this.subObject().initialize);
+	},
+	
+	// Scarlet.Object should use initialize as constructor method.
+	"testMultipleChainableInititializes": function()
+	{
+		var subClass = Scarlet.Object
+			.subclass(function() { this.parent(); this.a = 1; })
+			// this b should be overwritten
+			.subclass(function() { this.parent(); this.b = 2; })
+			.subclass(function() { this.parent(); this.b = 3; })
+			;
+		
+		var subObject = new subClass();
+		assertEquals(1, subObject.a);
+		assertEquals(3, subObject.b);
+	},
+	
+	// If no initialize is given, a standard implementation should be chosen to call the parent initialize.
+	"testNoInitializeGiven": function()
+	{
+		var subClass = Scarlet.Object
+			.subclass(function() { this.parent(); this.a = 1; })
+			// this b should be overwritten
+			.subclass()
+			;
+		
+		var subObject = new subClass();
+		assertEquals(1, subObject.a);
 	}
 	
 }));

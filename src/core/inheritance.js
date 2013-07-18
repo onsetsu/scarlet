@@ -10,8 +10,6 @@ Scarlet.inheritsFrom = function(childInitialize, superClass)
 		this.class = childClass;
 	};
 	
-
-	
 	var chain = function() {};
 	chain.prototype = superClass.prototype;
 	childClass.prototype = new chain();
@@ -20,6 +18,8 @@ Scarlet.inheritsFrom = function(childInitialize, superClass)
 	childClass.prototype.constructor = chain;
 	childClass.prototype.parent = superClass.prototype;
 	
+	// Use default implementation if no initialize was given.
+	childInitialize = childInitialize || function(/* arguments */) { this.parent(); };
 	// Initialize function is to be called, when a new object is created.
 	childClass.addMethod("initialize", childInitialize);
 	
