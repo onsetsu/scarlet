@@ -7,15 +7,30 @@ TestCase("testRegisteredObject", sinon.testCase({
 	tearDown: function()
 	{
 	}
-	/*
 	,
 	
-	// Created RegisteredObjects should be included in the list of instances of the class.
-	"testRegisteredObjectCanBeFoundInClassSideList": sinon.test(function() {
-		var obj = new Scarlet.RegisteredObject();
-		
-		assertTrue(_.contains(Scarlet.RegisteredObject.instances, obj));
+	// Each class should manage a separate list of its instances.
+	"testInstanceListExists": sinon.test(function() {
+		var subClass = Scarlet.Object.subclass();
+		var subSubClass = subClass.subclass();
+		var subSubSubClass = subSubClass.subclass();
+
+		assertNotSame(Scarlet.Object.instances, subClass.instances);
+		assertNotSame(Scarlet.Object.instances, subSubClass.instances);
+		assertNotSame(Scarlet.Object.instances, subSubSubClass.instances);
+		assertNotSame(subClass.instances, subSubClass.instances);
+		assertNotSame(subClass.instances, subSubSubClass.instances);
+		assertNotSame(subSubClass.instances, subSubSubClass.instances);
 	}),
+
+	// Each class should manage a separate list of its instances.
+	"testInstances": sinon.test(function() {
+
+	})
+	
+	/*
+		assertTrue(_.contains(Scarlet.Object.instances, obj));
+	,
 	
 	// Destroyed RegisteredObjects should not be included in the list of instances of the class anymore.
 	"testDestroyedRegisteredObjectCanNotBeFoundInClassSideList": sinon.test(function() {

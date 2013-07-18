@@ -6,8 +6,8 @@ Scarlet.inheritsFrom = function(childInitialize, superClass)
 {
 	// Manage new object and call initialize.
 	var childClass = function(/* arguments */) {
-		this.initialize.apply(this, arguments);
 		this.class = childClass;
+		this.initialize.apply(this, arguments);
 	};
 	
 	var chain = function() {};
@@ -16,12 +16,16 @@ Scarlet.inheritsFrom = function(childInitialize, superClass)
 	// enable static method inheritance
 	childClass.__proto__ = superClass;
 	childClass.prototype.constructor = chain;
+	// TODO: find other name for parent reference
 	childClass.prototype.parent = superClass.prototype;
 	
 	// Use default implementation if no initialize was given.
 	childInitialize = childInitialize || function(/* arguments */) { this.parent(); };
 	// Initialize function is to be called, when a new object is created.
 	childClass.addMethod("initialize", childInitialize);
+	
+	// Introduce list of instances.
+	childClass.instances = [];
 	
 	return childClass;
 };
