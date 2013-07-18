@@ -23,9 +23,37 @@ TestCase("testRegisteredObject", sinon.testCase({
 		assertNotSame(subSubClass.instances, subSubSubClass.instances);
 	}),
 
-	// Each class should manage a separate list of its instances.
-	"testInstances": sinon.test(function() {
-
+	// An instance should be contained in each list of instances of its (super-)classes.
+	"testSingleInstance": sinon.test(function() {
+		var subClass = Scarlet.Object.subclass();
+		var subSubClass = subClass.subclass();
+		var subSubSubClass = subSubClass.subclass();
+		
+		var object = new Scarlet.Object();
+		var subObject = new subClass();
+		var subSubObject = new subSubClass();
+		var subSubSubObject = new subSubSubClass();
+		
+		assertTrue(_.contains(Scarlet.Object.instances, object));
+		assertFalse(_.contains(subClass.instances, object));
+		assertFalse(_.contains(subSubClass.instances, object));
+		assertFalse(_.contains(subSubSubClass.instances, object));
+		
+		// TODO: add instance to repective list of instances to green this test.
+		assertTrue(_.contains(Scarlet.Object.instances, subObject));
+		assertTrue(_.contains(subClass.instances, subObject));
+		assertFalse(_.contains(subSubClass.instances, subObject));
+		assertFalse(_.contains(subSubSubClass.instances, subObject));
+		
+		assertTrue(_.contains(Scarlet.Object.instances, subSubObject));
+		assertTrue(_.contains(subClass.instances, subSubObject));
+		assertTrue(_.contains(subSubClass.instances, subSubObject));
+		assertFalse(_.contains(subSubSubClass.instances, subSubObject));
+		
+		assertTrue(_.contains(Scarlet.Object.instances, subSubSubObject));
+		assertTrue(_.contains(subClass.instances, subSubSubObject));
+		assertTrue(_.contains(subSubClass.instances, subSubSubObject));
+		assertTrue(_.contains(subSubSubClass.instances, subSubSubObject));
 	})
 	
 	/*

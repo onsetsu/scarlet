@@ -47,6 +47,7 @@
 	
 	Scarlet.Object = ProtoObject
 		.subclass(function constructor() {
+			this.class.instances.push(this);
 			this.__cache = {};
 		})
 		.addMethod("set", function(name, value) {
