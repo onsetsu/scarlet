@@ -6,6 +6,7 @@
 (function(Scarlet, undefined) {
 
 	Scarlet.Loop = Scarlet.Signal.subclass(function(callback, desiredTime) {
+		this.parent();
 		var that = this;
 		// -----------------------------------------------------------------------------
 
