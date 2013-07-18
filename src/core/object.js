@@ -51,5 +51,7 @@
 		.addMethod("get", function(name) {
 			return this.__cache[name];
 		});
+	
+	Scarlet.Object.prototype.class = Scarlet.Object;
 
 })(Scarlet);

@@ -9,6 +9,7 @@ Scarlet.inheritsFrom = function(childClass, superClass)
 	var realChild = function(/* arguments */) {
 		superClass.apply(this, arguments);
 		childClass.apply(this, arguments);
+		this.class = realChild;
 	};
 	var chain = function() {};
 	chain.prototype = superClass.prototype;

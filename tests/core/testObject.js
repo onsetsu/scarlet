@@ -1,6 +1,9 @@
 TestCase("testObject", sinon.testCase({
 	setUp: function() 
-	{	
+	{
+		this.subObject = Scarlet.Object.subclass(function() {});
+		this.subSubObject = this.subObject.subclass(function() {});
+		this.subSubSubObject = this.subSubObject.subclass(function() {});
 	},
 	
 	tearDown: function()
@@ -98,5 +101,42 @@ TestCase("testObject", sinon.testCase({
 		var subSubObject = new subSubClass();
 		subSubObject.set("actualValue", actualValue);
 		assertEquals(actualValue + addedValue, subSubObject.get("actualValue"));
+	},
+	
+	// In each object a reference to the corresponding class should be given.
+	"testSupportClassAttribute": function()
+	{
+		var obj = new Scarlet.Object();
+		assertEquals(Scarlet.Object, obj.class);
+
+		var subObj = new this.subObject();
+		assertEquals(this.subObject, subObj.class);
+
+		var subSubObj = new this.subSubObject();
+		assertEquals(this.subSubObject, subSubObj.class);
+	},
+	
+	// Static methods should be available using the class atrribute.
+	"testClassesShouldSupportStaticMethods": function()
+	{
+		this.subObject.addClassMethod("double", function(a) {
+			return 2*a;
+		});
+		
+		var subObj = new this.subObject();
+		assertEquals(4, subObj.class.double(2));
+
+		var subSubObj = new this.subSubObject();
+		assertEquals(this.subSubObject, subSubObj.class);
+		assertEquals(6, subSubObj.class.double(3));
+	},
+	
+	// TODO: refine by replacing initialize
+	// Scarlet.Object should use initialize as constructor method.
+	"testScarletObjectShouldUseInitializeAsConstructorMehtod": function()
+	{
+		assertNotUndefined(new Scarlet.Object().initialize);
+		assertNotUndefined(new this.subObject().initialize);
 	}
+	
 }));
