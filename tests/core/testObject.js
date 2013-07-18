@@ -61,9 +61,18 @@ TestCase("testObject", sinon.testCase({
 		var subSpy = sinon.spy();
 		var subSubSpy = sinon.spy();
 
-		var Sub = Scarlet.Object.subclass(spy);
-		var SubSub = Sub.subclass(subSpy);
-		var SubSubSub = SubSub.subclass(subSubSpy);
+		var Sub = Scarlet.Object.subclass(function() {
+			this.parent();
+			spy();
+		});
+		var SubSub = Sub.subclass(function() {
+			this.parent();
+			subSpy();
+		});
+		var SubSubSub = SubSub.subclass(function() {
+			this.parent();
+			subSubSpy();
+		});
 
 		new SubSubSub();
 		sinon.assert.calledOnce(spy);
@@ -76,8 +85,8 @@ TestCase("testObject", sinon.testCase({
 	"testGetSet": function()
 	{
 		var obj = new (Scarlet.Object
-			.subclass(function(){})
-			.subclass(function(){})
+			.subclass(function(){ this.parent(); })
+			.subclass(function(){ this.parent(); })
 		)();
 		obj.set("foo", 42);
 		assertEquals(42, obj.get("foo"));
@@ -91,11 +100,11 @@ TestCase("testObject", sinon.testCase({
 		
 		var spy = sinon.spy();
 		var subSubClass = Scarlet.Object.subclass(function() {
-			
+			this.parent(arguments);
 		}).subclass(function(){
-			
+			this.parent(arguments);
 		}).addMethod("set", function(name, value) {
-			this.super(name, value + addedValue);
+			this.parent(name, value + addedValue);
 		});
 		
 		var subSubObject = new subSubClass();

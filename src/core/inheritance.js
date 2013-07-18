@@ -2,22 +2,27 @@
  * Extend Scarlet with a convenient method for inheritance.
  * 
  */
-Scarlet.inheritsFrom = function(childClass, superClass)
+Scarlet.inheritsFrom = function(childInitialize, superClass)
 {
-	// TODO: introduce initialize function and
-	// leave constructor for management
-	var realChild = function(/* arguments */) {
-		superClass.apply(this, arguments);
-		childClass.apply(this, arguments);
-		this.class = realChild;
+	// Manage new object and call initialize.
+	var childClass = function(/* arguments */) {
+		this.initialize.apply(this, arguments);
+		this.class = childClass;
 	};
+	
+
+	
 	var chain = function() {};
 	chain.prototype = superClass.prototype;
-	realChild.prototype = new chain();
+	childClass.prototype = new chain();
 	// enable static method inheritance
-	realChild.__proto__ = superClass;
-	realChild.prototype.constructor = chain;
-	realChild.prototype.parent = superClass.prototype;
-	return realChild;
+	childClass.__proto__ = superClass;
+	childClass.prototype.constructor = chain;
+	childClass.prototype.parent = superClass.prototype;
+	
+	// Initialize function is to be called, when a new object is created.
+	childClass.addMethod("initialize", childInitialize);
+	
+	return childClass;
 };
 

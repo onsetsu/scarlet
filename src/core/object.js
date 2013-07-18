@@ -4,22 +4,20 @@
  */
 (function(Scarlet, undefined){
 
-	Scarlet.Object = function constructor() {
-		this.__cache = {};
-	};
+	var ProtoObject = function protoConstructor() {};
 
-	Scarlet.Object.addClassMethod = function(methodName, method) {
+	ProtoObject.addClassMethod = function(methodName, method) {
 		this[methodName] = method;
 		return this;
 	};
 	
-	Scarlet.Object
+	ProtoObject
 		.addClassMethod("subclass", function(childConstructor) {
 			return Scarlet.inheritsFrom(childConstructor, this);
 		})
 		.addClassMethod("addMethod", function(methodName, method) {
-			var superCallName = "super";
-			var fnTest = /xyz/.test(function(){xyz;}) ? new RegExp(/\bsuper\b/) : /.*/;
+			var superCallName = "parent";
+			var fnTest = /xyz/.test(function(){xyz;}) ? new RegExp(/\bparent\b/) : /.*/;
 			
 			var parent = {};
 			parent[methodName] = this.prototype[methodName]; // save original function
@@ -42,8 +40,15 @@
 				this.prototype[methodName] = method;
 			}
 			return this;
+		});
+	
+	ProtoObject.prototype.class = ProtoObject;
+
+	
+	Scarlet.Object = ProtoObject
+		.subclass(function constructor() {
+			this.__cache = {};
 		})
-		.addMethod("initialize", constructor)
 		.addMethod("set", function(name, value) {
 			this.__cache[name] = value;
 			return this;
@@ -51,7 +56,4 @@
 		.addMethod("get", function(name) {
 			return this.__cache[name];
 		});
-	
-	Scarlet.Object.prototype.class = Scarlet.Object;
-
 })(Scarlet);
