@@ -74,10 +74,11 @@
 	// TODO: add filter function
 	Scarlet.Slot = Scarlet.Object.subclass(function(slotContext, slotMethod)
 	{
-		var callback = new Scarlet.Callback(slotContext, slotMethod);
+		//var callback = new Scarlet.Callback(slotContext, slotMethod);
 		this.execute = function()
 		{
-			callback.execute.apply(this.callback, arguments);
+			slotMethod.apply(slotContext, arguments);
+			//callback.execute.apply(this.callback, arguments);
 		};
 	});
 
