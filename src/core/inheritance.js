@@ -22,7 +22,7 @@ Scarlet.inheritsFrom = function(childInitialize, superClass)
 	childClass.prototype.parent = superClass.prototype;
 	
 	// Use default implementation if no initialize was given.
-	childInitialize = childInitialize || function(/* arguments */) { this.parent(); };
+	childInitialize = childInitialize || function(/* arguments */) { this.parent(arguments); };
 	// Initialize function is to be called, when a new object is created.
 	childClass.addMethod("initialize", childInitialize);
 	
