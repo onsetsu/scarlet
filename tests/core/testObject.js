@@ -116,13 +116,13 @@ TestCase("testObject", sinon.testCase({
 	"testSupportClassAttribute": function()
 	{
 		var obj = new Scarlet.Object();
-		assertEquals(Scarlet.Object, obj.class);
+		assertSame(Scarlet.Object, obj.class);
 
 		var subObj = new this.subObject();
-		assertEquals(this.subObject, subObj.class);
+		assertSame(this.subObject, subObj.class);
 
 		var subSubObj = new this.subSubObject();
-		assertEquals(this.subSubObject, subSubObj.class);
+		assertSame(this.subSubObject, subSubObj.class);
 	},
 	
 	// Static methods should be available using the class atrribute.
