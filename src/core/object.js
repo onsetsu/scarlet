@@ -47,7 +47,6 @@
 	
 	Scarlet.Object = ProtoObject
 		.subclass(function constructor() {
-			this.class.instances.push(this);
 			this.__cache = {};
 		})
 		.addMethod("set", function(name, value) {
@@ -57,4 +56,30 @@
 		.addMethod("get", function(name) {
 			return this.__cache[name];
 		});
+	
+	Scarlet.Object
+		.addClassMethod("addInstance", function(instance) {
+			if(this !== Scarlet.Object)
+			{
+				this.superClass.addInstance(instance);
+			}
+			this.instances.push(instance);
+		})
+		.addClassMethod("removeInstance", function(instance) {
+			if(!this.instances) this.instances = [];
+			
+			var index = this.instances.indexOf(instance);
+			if(index !== -1)
+			{
+				this.instances.splice(index, 1);
+			}
+			else
+			{
+				// TODO: error if no match
+			}
+		})
+		.addMethod("destroy", function() {
+			this.class.removeInstance(this);
+		});
+
 })(Scarlet);
