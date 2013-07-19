@@ -8,6 +8,7 @@ Scarlet.inheritsFrom = function(childInitialize, superClass)
 	var childClass = function(/* arguments */) {
 		this.class.addInstance(this);
 		this.initialize.apply(this, arguments);
+		this.class.instanceCreated.emit(this);
 	};
 	
 	var chain = function() {};
@@ -29,6 +30,7 @@ Scarlet.inheritsFrom = function(childInitialize, superClass)
 	// TODO: add final attribute instead of using addMethod.
 	childClass.addMethod("class", childClass);
 	
+	childClass.addClassMethod("instanceCreated", new Scarlet.Signal());
 	// Introduce list of instances.
 	childClass.instances = [];
 	

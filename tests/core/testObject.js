@@ -173,6 +173,29 @@ TestCase("testObject", sinon.testCase({
 		
 		var subObject = new subClass();
 		assertEquals(1, subObject.a);
+	},
+	
+	// After initialize of a newly created Object was called, a signal for the instance creation should be fired.
+	// Signal should emit the created object.
+	"testInstanceCreatedSignal": function()
+	{
+		var initializeSpy = sinon.spy();
+		var slotSpy = sinon.spy();
+
+		var subClass = Scarlet.Object.subclass(function() { this.parent(); initializeSpy.apply({}, arguments); });
+		var slot = new Scarlet.Slot({}, slotSpy);
+		subClass.instanceCreated.connect(slot);
+		
+		var expectedArg1 = "hello";
+		var expectedArg2 = "test";
+		
+		var actualObject = new subClass(expectedArg1, expectedArg2);
+
+		sinon.assert.calledOnce(initializeSpy);
+		sinon.assert.calledOnce(slotSpy);
+		sinon.assert.callOrder(initializeSpy, slotSpy);
+		sinon.assert.calledWith(initializeSpy, expectedArg1, expectedArg2);
+		sinon.assert.calledWith(slotSpy, actualObject);
 	}
 	
 }));
