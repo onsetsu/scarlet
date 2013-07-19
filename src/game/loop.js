@@ -5,7 +5,7 @@
  */
 (function(Scarlet, undefined) {
 
-	Scarlet.Loop = Scarlet.Signal.subclass(function(callback, desiredTime) {
+	Scarlet.Loop = function(callback, desiredTime) {
 		this.parent();
 		var that = this;
 		// -----------------------------------------------------------------------------
@@ -60,7 +60,7 @@
 		}
 
 	//}).addMethod("stop", function(id) {
-	});
+	};
 		
 })(Scarlet);
 
