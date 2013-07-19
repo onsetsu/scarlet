@@ -9,7 +9,7 @@
 	// ------
 	// Signal
 	// ------
-	Scarlet.Signal = Scarlet.Object.subclass(function()
+	Scarlet.Signal = function()
 	{
 		var slots = [];
 		
@@ -66,13 +66,13 @@
 			slots = [];
 			return this;
 		};
-	});
+	};
 
 	// ----
 	// Slot
 	// ----
 	// TODO: add filter function
-	Scarlet.Slot = Scarlet.Object.subclass(function(slotContext, slotMethod)
+	Scarlet.Slot = function(slotContext, slotMethod)
 	{
 		//var callback = new Scarlet.Callback(slotContext, slotMethod);
 		this.execute = function()
@@ -80,6 +80,6 @@
 			slotMethod.apply(slotContext, arguments);
 			//callback.execute.apply(this.callback, arguments);
 		};
-	});
+	};
 
 })(Scarlet);
