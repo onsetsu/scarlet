@@ -66,8 +66,10 @@
 			this.instances.push(instance);
 		})
 		.addClassMethod("removeInstance", function(instance) {
-			if(!this.instances) this.instances = [];
-			
+			if(this !== Scarlet.Object)
+			{
+				this.superClass.removeInstance(instance);
+			}
 			var index = this.instances.indexOf(instance);
 			if(index !== -1)
 			{
