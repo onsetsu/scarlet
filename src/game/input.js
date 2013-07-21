@@ -100,6 +100,7 @@
 
 
 	Scarlet.Input = Scarlet.Object.subclass(function(domElementId) {
+		this.parent();
 		var that = this;
 		
 		this.bindings = {};

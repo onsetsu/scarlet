@@ -6,7 +6,6 @@
 (function(Scarlet, undefined) {
 
 	Scarlet.Loop = function(callback, desiredTime) {
-		this.parent();
 		var that = this;
 		// -----------------------------------------------------------------------------
 
