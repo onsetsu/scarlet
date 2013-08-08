@@ -61,6 +61,7 @@ window.Scarlet = (function scarlet() {
 // include core
 Scarlet
 	.include("core/namespace")
+	.include("core/signalslot")
 	.include("core/inheritance")
 	.include("core/object")
 	.include("core/mixin")
@@ -68,7 +69,7 @@ Scarlet
 	.include("core/asynchronousmodule")
 	.include("core/integration/integration")
 	.include("core/callback")
-	.include("core/signalslot");
+	;
 
 // include utility functions
 Scarlet
