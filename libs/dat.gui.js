@@ -1675,13 +1675,7 @@ dat.GUI = dat.gui.GUI = (function (css, saveDialogueContents, styleSheet, contro
 
         /** @lends dat.gui.GUI.prototype */
         {
-    	removeFolder: function(name) {
-    		  this.__folders[name].close();
-    		  this.__ul.removeChild(this.__folders[name].li);
-    		  dom.removeClass(this.__folders[name].li, 'folder');
-    		  this.__folders[name] = undefined;
-    		  this.onResize();
-    		},
+
           /**
            * The parent <code>GUI</code>
            * @type dat.gui.GUI
@@ -1765,13 +1759,7 @@ dat.GUI = dat.gui.GUI = (function (css, saveDialogueContents, styleSheet, contro
               }
             }
           },
-          removeFolder: function(name) {
-        	  this.__folders[name].close();
-        	  this.__ul.removeChild(this.__folders[name].li);
-        	  dom.removeClass(this.__folders[name].li, 'folder');
-        	  this.__folders[name] = undefined;
-        	  this.onResize();
-        	},
+
           /**
            * Whether the <code>GUI</code> is collapsed or not
            * @type Boolean
@@ -2013,13 +2001,7 @@ dat.GUI = dat.gui.GUI = (function (css, saveDialogueContents, styleSheet, contro
           );
 
         },
-        removeFolder: function(name) {
-        	  this.__folders[name].close();
-        	  this.__ul.removeChild(this.__folders[name].li);
-        	  dom.removeClass(this.__folders[name].li, 'folder');
-        	  this.__folders[name] = undefined;
-        	  this.onResize();
-        	},
+
         /**
          * @param object
          * @param property
@@ -2062,13 +2044,7 @@ dat.GUI = dat.gui.GUI = (function (css, saveDialogueContents, styleSheet, contro
           }
 
         },
-        removeFolder: function(name) {
-        	  this.__folders[name].close();
-        	  this.__ul.removeChild(this.__folders[name].li);
-        	  dom.removeClass(this.__folders[name].li, 'folder');
-        	  this.__folders[name] = undefined;
-        	  this.onResize();
-        	},
+
         /**
          * @param name
          * @returns {dat.gui.GUI} The new folder.
