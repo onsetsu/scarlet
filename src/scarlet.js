@@ -80,7 +80,6 @@ Scarlet
 // include game
 Scarlet
 	.include("game/loop")
-	.include("game/input")
 	.include("game/game");
 
 Scarlet
