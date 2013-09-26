@@ -77,10 +77,6 @@ Scarlet
 	.include("utilities/currying")
 	.include("utilities/typechecker");
 
-// include game
-Scarlet
-	.include("game/game");
-
 Scarlet
 	.include("select/select")
 	;
