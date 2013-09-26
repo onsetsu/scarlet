@@ -79,7 +79,6 @@ Scarlet
 
 // include game
 Scarlet
-	.include("game/loop")
 	.include("game/game");
 
 Scarlet
